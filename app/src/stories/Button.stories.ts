@@ -1,51 +1,77 @@
 import type { Meta, StoryObj } from '@storybook/angular';
-import Button from './button.component';
+import { ButtonComponent } from '../app/shared/button/button.component';
+import { buttonColor } from 'src/app/shared/common/enum';
+import { userEvent, within } from '@storybook/testing-library';
 
-// More on how to set up stories at: https://storybook.js.org/docs/angular/writing-stories/introduction
-const meta: Meta<Button> = {
-  title: 'Example/Button',
-  component: Button,
+const meta: Meta<ButtonComponent> = {
+  title: 'Components/Button',
+  component: ButtonComponent,
   tags: ['autodocs'],
-  render: (args: Button) => ({
+  parameters: {
+    design: {
+        type: 'figma',
+        url: "https://www.figma.com/file/CR3xtX6GNEOJ76eOIq8ABH/APP?type=design&node-id=0%3A1&mode=design&t=bq2ImKnHKa3JcR3u-1"
+    }
+  },
+  render: (args: ButtonComponent) => ({
     props: {
-      backgroundColor: null,
       ...args,
     },
   }),
   argTypes: {
-    backgroundColor: {
-      control: 'color',
+    color: {
+      control: 'select', options: buttonColor
     },
+    newEvent: {
+      action: 'clicked'
+    }
   },
 };
 
 export default meta;
-type Story = StoryObj<Button>;
+type Story = StoryObj<ButtonComponent>;
 
-// More on writing stories with args: https://storybook.js.org/docs/angular/writing-stories/args
 export const Primary: Story = {
   args: {
-    primary: true,
-    label: 'Button',
+    label: 'Primay',
+    color: buttonColor.PRIMARY,
+    loggerText: "This is a primary button",
+    dataTestId: "primaryBtn"
   },
 };
 
-export const Secondary: Story = {
+Primary.play = async ({ canvasElement }) => {
+  let canvas = within(canvasElement);
+  let button = await canvas.getByTestId("primaryBtn");
+  await userEvent.click(button);
+}
+
+export const Accent: Story = {
   args: {
-    label: 'Button',
+    label: 'Accent',
+    color: buttonColor.ACCENT,
+    loggerText: "This is a accent button",
+    dataTestId: "accentBtn"
   },
 };
 
-export const Large: Story = {
+Accent.play = async ({ canvasElement }) => {
+  let canvas = within(canvasElement);
+  let button = await canvas.getByTestId("accentBtn");
+  await userEvent.click(button);
+}
+
+export const Warn: Story = {
   args: {
-    size: 'large',
-    label: 'Button',
+    label: 'Warn',
+    color: buttonColor.WARN,
+    loggerText: "This is a warn button",
+    dataTestId: "warnBtn"
   },
 };
 
-export const Small: Story = {
-  args: {
-    size: 'small',
-    label: 'Button',
-  },
-};
+Warn.play = async ({ canvasElement }) => {
+  let canvas = within(canvasElement);
+  let button = await canvas.getByTestId("warnBtn");
+  await userEvent.click(button);
+}

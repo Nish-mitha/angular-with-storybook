@@ -6,6 +6,9 @@ const config: StorybookConfig = {
     "@storybook/addon-links",
     "@storybook/addon-essentials",
     "@storybook/addon-interactions",
+    "@storybook/addon-a11y",
+    "@storybook/addon-coverage",
+    "@storybook/addon-designs"
   ],
   framework: {
     name: "@storybook/angular",
@@ -13,6 +16,20 @@ const config: StorybookConfig = {
   },
   docs: {
     autodocs: "tag",
+  },
+  webpackFinal(config, options) {
+    const rules = config.module?.rules || []
+    rules.push({
+    test: /\.(js|ts)$/,
+    loader: '@jsdevtools/coverage-istanbul-loader',
+    enforce: 'post',
+    include: [/\.(stories)\.ts$/]
+    })
+
+    config.module = config.module || {}
+    config.module.rules = rules
+
+    return config
   },
 };
 export default config;
