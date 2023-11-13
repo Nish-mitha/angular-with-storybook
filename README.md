@@ -358,19 +358,17 @@ Storybook integrates with design tools to speed up your development workflow. Th
                 autodocs: "tag",
             },
         };
-export default config;
+        export default config;
 3. Link Figma components to stories
-    - Paste the Figma URL in Storybook. Use a parameter to associate Figma files and frames to your story.
+    Paste the Figma URL in Storybook. Use a parameter to associate Figma files and frames to your story.
 
-            const meta: Meta<ButtonComponent> = {
-                title: "Components/Button",
-                component: ButtonComponent,
-                parameters: {
-                    design: {
-                        type: 'figma',
-                        url: ""
-                    }
-                },
-            };
-
-
+        const meta: Meta<ButtonComponent> = {
+            title: "Components/Button",
+            component: ButtonComponent,
+            parameters: {
+                design: {
+                    type: 'figma',
+                    url: ""
+                }
+            },
+        };
