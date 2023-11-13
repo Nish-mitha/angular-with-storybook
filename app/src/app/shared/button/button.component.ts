@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { buttonColor } from '../common/enum';
 
@@ -19,4 +19,14 @@ export class ButtonComponent {
 
   @Input()
   dataTestId: string = "";
+
+  @Input()
+  loggerText: string = "";
+
+  @Output() 
+  newEvent = new EventEmitter<string>();
+
+  logger() {
+    this.newEvent.emit(this.loggerText);
+  }
 }
