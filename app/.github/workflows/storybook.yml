@@ -3,7 +3,7 @@ name: Publish stories if changed
 on:
   push:
     branches:
-      - main
+      - version-0.1
     paths:
       - stories/**
       - src/components/**
