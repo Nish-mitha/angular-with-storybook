@@ -1,13 +1,13 @@
 name: Publish stories if changed
 
-on:
-  push:
-    branches:
-      - version-0.1
-    paths:
-      - stories/**
-      - src/components/**
-  workflow_call:
+# on:
+#   push:
+#     branches:
+#       - version-0.1
+#     paths:
+#       - stories/**
+#       - src/components/**
+#   workflow_call:
 
 jobs:
   deploy:
